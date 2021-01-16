@@ -687,22 +687,25 @@ class Ui_MainWindow(object):
         
     def mindfa_table(self):
         self.model=QStandardItemModel(numstate,len(mindfa1.terminator))
-        self.model.setVerticalHeaderLabels([str(i) for i in range(numstate)])
+        self.model.setVerticalHeaderLabels(['' for i in range(numstate)])
         
         tmp=list(dfa1.terminator)
         tmp.sort()
+        tmp.insert(0,'DFA状态')
         self.model.setHorizontalHeaderLabels(list(tmp))
         print(str(mindfa1.trans))
         print(numstate,len(mindfa1.terminator))
         for row in range(numstate):
+            i=QStandardItem(str(row))
+            self.model.setItem(row,0,i)
             for col in range(len(mindfa1.terminator)):
                 i=QStandardItem(str(mindfa1.trans[row][col]))
                 print(i)
-                self.model.setItem(row,col,i)
+                self.model.setItem(row,col+1,i)
         self.tableView.setModel(self.model)
         self.label_2.setPlaceholderText("右为最小化DFA状态表\n最小化DFA图蓝色结点为初态，红色结点为终态")
         #绘图
-        g=Digraph('mindfa',format='png')
+        g=Digraph('mindfa',graph_attr={'rankdir':'LR'},format='png')
         for i in range(numstate):
             if i==mindfa1.startState:
                 g.node(name=str(i),color='blue')
@@ -718,23 +721,28 @@ class Ui_MainWindow(object):
     
     def dfa_table(self):
         self.model=QStandardItemModel(dfanum,len(dfa1.terminator))
-        self.model.setVerticalHeaderLabels([str(i) for i in range(numstate)])
+        self.model.setVerticalHeaderLabels(['' for i in range(numstate+1)])
         
         #设置水平方向四个头标签文本内容
         tmp=list(dfa1.terminator)
         tmp.sort()
+        tmp.insert(0,'DFA状态')
         self.model.setHorizontalHeaderLabels(list(tmp))
         print(str(dfa1.trans))
         print(dfanum,len(dfa1.terminator))
         for row in range(dfanum):
+            print(row)
+            i=QStandardItem(str(row))
+            self.model.setItem(row,0,i)
             for col in range(len(dfa1.terminator)):
+                print(str(dfa1.trans[row][col]))
                 i=QStandardItem(str(dfa1.trans[row][col]))
                 print(i)
-                self.model.setItem(row,col,i)
+                self.model.setItem(row,col+1,i)
         self.tableView.setModel(self.model)
         self.label_2.setPlaceholderText("右为DFA状态表\nDFA图蓝色结点为初态，红色结点为终态")
         #绘图
-        g=Digraph('dfa',format='png')
+        g=Digraph('dfa',graph_attr={'rankdir':'LR'},format='png')
         for i in range(dfanum):
             if i==dfa1.startState:
                 g.node(name=str(i),color='blue')
@@ -777,7 +785,7 @@ class Ui_MainWindow(object):
         self.tableView.setModel(self.model)
         self.label_2.setPlaceholderText("右为NFA状态表\nNFA图蓝色结点为初态，红色结点为终态")
         #画图
-        g=Digraph('nfa',format='png')
+        g=Digraph('nfa',graph_attr={'rankdir':'LR'},format='png')
         for i in range(nfanum):
             if i==nfa1.head.index:
                 g.node(str(i),color='blue')
