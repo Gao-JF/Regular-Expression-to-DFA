@@ -104,6 +104,95 @@ move操作：就是用闭包的所有状态去匹配当前的标识符，得到�
 2){E} 独自分组，无法操作。 {A,B,C,D}做a操作，发现都转为状态B，做b操作，A，B，C在 {A,B,C,D} 组内成员，而D在另一个组内，重新分组得到 {A,B,C} {D} {E}  
 3){D} {E}无法操作， {A,B,C} 做a操作，都在同一组内，做b操作，B不在同一组内，重新划分，重新分组得到 {A,C} {B} {D} {E}  
 4){A,C} 进行a操作和b操作都在同一组内，无法继续向下划分了。操作到此结束。可以将 {A,C}合并  
+得到最小化DFA：  
+![MINDFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/mindfa.png?raw=true)   
+
+## 3.5 生成代码
+根据之前求的dfa状态，依次遍历生成就行，看例子和代码应该就懂辽，不说了。
+
+## 一个完整实例  
+正则表达式：(a|b)*abb  
+后缀表达式：ab|*a&b&b&  
+NFA图：  
+![NFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/nfa.png?raw=true)   
+DFA图：  
+![DFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/dfa.png?raw=true)   
+最小化DFA图：  
+![MINDFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/mindfa.png?raw=true)   
+生成代码：  
+		    int startState = 1;
+int state = startState;
+bool quit = false;
+while(quit == false)
+{
+    char ch = cin.get(); //ch属于[a-z] 
+    switch(state)
+    {
+    case 0:
+        switch(ch)
+        {
+            case 'a':
+                state = 3;
+                break;
+            case 'b':
+                state = 1;
+                break;
+            default:
+                quit = true;
+                cout<<"到达终止状态，正常结束。"<<endl;
+                break;
+        }
+        break;
+    case 1:
+        switch(ch)
+        {
+            case 'a':
+                state = 3;
+                break;
+            case 'b':
+                state = 1;
+                break;
+            default:
+                cout<<"错误：出现意料外的字符！"<<endl;
+                cout<<"匹配提前终止."<<endl;
+                quit = true;
+                break;
+        }
+        break;
+    case 2:
+        switch(ch)
+        {
+            case 'a':
+                state = 3;
+                break;
+            case 'b':
+                state = 0;
+                break;
+            default:
+                cout<<"错误：出现意料外的字符！"<<endl;
+                cout<<"匹配提前终止."<<endl;
+                quit = true;
+                break;
+        }
+        break;
+    case 3:
+        switch(ch)
+        {
+            case 'a':
+                state = 3;
+                break;
+            case 'b':
+                state = 2;
+                break;
+            default:
+                cout<<"错误：出现意料外的字符！"<<endl;
+                cout<<"匹配提前终止."<<endl;
+                quit = true;
+                break;
+        }
+        break;
+    }
+}
 
 # 感谢  
 本程序主要参考了这两个文档，感谢！！  
