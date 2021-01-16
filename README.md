@@ -23,6 +23,7 @@
 &符号是连接，一般不显示，但是为了处理连接用一个&代替  
 
 本文档中的说明图片均为本程序生成，可以看作是样例图片。  
+蓝色结点是初始结点，红色结点是终止结点。  
 图片无法显示是因为DNS污染，科学上网就能看到啦
   
 ## 3.1 正则表达式的预处理
@@ -120,78 +121,80 @@ DFA图：
 最小化DFA图：  
 ![MINDFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/mindfa.png?raw=true)   
 生成代码：  
-		    int startState = 1;
+
+
+int startState = 1;
 int state = startState;
 bool quit = false;
 while(quit == false)
 {
-    char ch = cin.get(); //ch属于[a-z] 
-    switch(state)
-    {
-    case 0:
-        switch(ch)
-        {
-            case 'a':
-                state = 3;
-                break;
-            case 'b':
-                state = 1;
-                break;
-            default:
-                quit = true;
-                cout<<"到达终止状态，正常结束。"<<endl;
-                break;
-        }
-        break;
-    case 1:
-        switch(ch)
-        {
-            case 'a':
-                state = 3;
-                break;
-            case 'b':
-                state = 1;
-                break;
-            default:
-                cout<<"错误：出现意料外的字符！"<<endl;
-                cout<<"匹配提前终止."<<endl;
-                quit = true;
-                break;
-        }
-        break;
-    case 2:
-        switch(ch)
-        {
-            case 'a':
-                state = 3;
-                break;
-            case 'b':
-                state = 0;
-                break;
-            default:
-                cout<<"错误：出现意料外的字符！"<<endl;
-                cout<<"匹配提前终止."<<endl;
-                quit = true;
-                break;
-        }
-        break;
-    case 3:
-        switch(ch)
-        {
-            case 'a':
-                state = 3;
-                break;
-            case 'b':
-                state = 2;
-                break;
-            default:
-                cout<<"错误：出现意料外的字符！"<<endl;
-                cout<<"匹配提前终止."<<endl;
-                quit = true;
-                break;
-        }
-        break;
-    }
+char ch = cin.get(); //ch属于[a-z] 
+switch(state)
+{
+case 0:
+switch(ch)
+{
+case 'a':
+state = 3;
+break;
+case 'b':
+state = 1;
+break;
+default:
+quit = true;
+cout<<"到达终止状态，正常结束。"<<endl;
+break;
+}
+break;
+case 1:
+switch(ch)
+{
+case 'a':
+state = 3;
+break;
+case 'b':
+state = 1;
+break;
+default:
+cout<<"错误：出现意料外的字符！"<<endl;
+cout<<"匹配提前终止."<<endl;
+quit = true;
+break;
+}
+break;
+case 2:
+switch(ch)
+{
+case 'a':
+state = 3;
+break;
+case 'b':
+state = 0;
+break;
+default:
+cout<<"错误：出现意料外的字符！"<<endl;
+cout<<"匹配提前终止."<<endl;
+quit = true;
+break;
+}
+break;
+case 3:
+switch(ch)
+{
+case 'a':
+state = 3;
+break;
+case 'b':
+state = 2;
+break;
+default:
+cout<<"错误：出现意料外的字符！"<<endl;
+cout<<"匹配提前终止."<<endl;
+quit = true;
+break;
+}
+break;
+}
 }
 
 # 感谢  
