@@ -73,16 +73,17 @@ __噢对！不要忘了检查输入的正则表达式的合法性，本程序只
 ①闭包*:  
 新建一个NFAstate，然后再从栈中取出一个NFAstate，具体操作如图  
 
-![闭包](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/dfa.png?raw=true) 
+![闭包](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/%E9%97%AD%E5%8C%85.png?raw=true)   
 ②正闭包+：  
 新建一个NFAstate，然后再从栈中取出一个NFAstate，具体操作如图  
-
+![正闭包](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/%E6%AD%A3%E9%97%AD%E5%8C%85.jpg?raw=true)   
 ③或|：  
 新建一个NFAstate，然后再从栈中取出两个NFAstate，具体操作如图  
-
+![或](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/%E6%88%96.png?raw=true)   
 ④连接&：  
 从栈中取出两个NFAstate，具体操作如图  
-  
+![连接](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/%E8%BF%9E%E6%8E%A5.png?raw=true)   
+
 ## 3.3 NFA转化为DFA  
 基本思路  
 1)首先找出初始状态的ε闭包
@@ -92,7 +93,7 @@ move操作：就是用闭包的所有状态去匹配当前的标识符，得到�
 
 ## 3.4 DFA最小化
 用这个图做例子：  
-
+![DFA](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/dfa.png?raw=true)   
 1)分组，得到 {A,B,C,D} {E}  
 2){E} 独自分组，无法操作。 {A,B,C,D}做a操作，发现都转为状态B，做b操作，A，B，C在 {A,B,C,D} 组内成员，而D在另一个组内，重新分组得到 {A,B,C} {D} {E}  
 3){D} {E}无法操作， {A,B,C} 做a操作，都在同一组内，做b操作，B不在同一组内，重新划分，重新分组得到 {A,C} {B} {D} {E}  
