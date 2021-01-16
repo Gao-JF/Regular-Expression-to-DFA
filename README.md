@@ -73,7 +73,7 @@ __噢对！不要忘了检查输入的正则表达式的合法性，本程序只
 ①闭包*:  
 新建一个NFAstate，然后再从栈中取出一个NFAstate，具体操作如图  
 
-![闭包]  
+![闭包](https://github.com/Gao-JF/Regular-Expression-to-DFA/blob/main/dfa.png?raw=true) 
 ②正闭包+：  
 新建一个NFAstate，然后再从栈中取出一个NFAstate，具体操作如图  
 
